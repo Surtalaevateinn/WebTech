@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        /* header区域 */
+        .wrapper {
+            margin: 0 auto;
+            width: 1200px;
+
+        }
+
+        body {
+            background-color: #f3f5f7;
+        }
+
+        .header {
+            height: 100px;
+            background-color: #fff;
+        }
+
+        .header .wrapper {
+            display: flex;
+            padding-top: 29px;
+        }
+
+        .logo a {
+            display: block;
+            width: 195px;
+            height: 41px;
+            background-image: url(http://www.cqupt.edu.cn/dfiles/13011/cqupt/img/logo.jpg);
+            background-size: 100% 100%;
+            font-size: 0;
+        }
+
+        .nav {
+            margin-left: 102px;
+        }
+
+        .nav ul {
+            display: flex;
+        }
+
+        .nav li {
+            margin-right: 24px;
+        }
+
+        .nav li a {
+            display: block;
+            padding: 6px 8px;
+            line-height: 27px;
+        }
+
+        .nav li .active,
+        .nav li:hover {
+            border-bottom: 2px solid #00a4ff;
+        }
+
+        .search {
+            display: flex;
+            margin-left: 64px;
+            padding-left: 19px;
+            padding-right: 12px;
+            width: 412px;
+            height: 40px;
+            background-color: #f3f5f7;
+            border-radius: 20px;
+        }
+
+        .search input {
+            flex: 1;
+            border:0;
+            background-color: transparent;
+            /* 去掉表单控件的焦点框 */
+            outline: none;
+        }
+
+        .search input::placeholder {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .search .anniu {
+            align-self: center;
+            width: 16px;
+            height: 16px;
+            background: url(./images/search.png) no-repeat  center right;
+
+        }
+
+        .user {
+            margin-left: 32px;
+            margin-top: 4px;
+        }
+
+        .user img {
+            /* vertical-align行内块和行内垂直方向对齐方式 */
+            margin-right: 7px;
+            vertical-align: middle;
+        }
+
+        .user span {
+            color: #666;
+            font-size: 16px;
+        }
+        /*header结束*/
+
+
+        /* 页脚界面 */
+        .page-footer {
+            background-size: 100% 100%;
+            background-image: url(./images/084337990425664.jpg);
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- logo -->
+            <div class="logo"><h1><a href="http://www.cqupt.edu.cn/">重邮小世界</a></h1></div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="#">校园购</a></li>
+                    <li><a href="#">校园趣事</a></li>
+                </ul>
+            </div>
+            <!-- 搜索 -->
+            <div class="search">
+                <input type="text" name="" id="" placeholder="请输入关键词" @keydown.native.enter="search()" v-model="wd">
+                <input type="button" @click="search()" class="anniu">
+
+            </div>
+            <!-- 用户 -->
+            <div class="user">
+                <a href="#">
+                    <img src="./uploads/user.png" alt="">
+                    <span>冒充</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--头部结束-->
+
+    <el-main>
+        <el-row :gutter="20">
+            <el-col span="6" v-for="p in productarr">
+                <el-card>
+                    <div>
+                        <a :href="'/detail.html?id='+p.id">
+                            <img class="p_img" :src="p.url" width="230" height="230" alt="">
+                        </a>
+                    </div>
+                    <div>
+                        <a style="color: #3f3f3f;text-decoration: none" :href="'/detail.html?id='+p.id">
+                            <p style="font-size: 15px;margin-top: 0;height: 30px">{{p.title}}</p>
+                        </a>
+                        <div style="color: #6c6c6c">
+                            <span>${{p.price}}</span>
+                            <span style="font-size: 12px;text-decoration: line-through">${{p.oldPrice}}</span>
+                            <span style="float: right">销量：{{p.saleCount}}</span>
+                        </div>
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
+    </el-main>
+
+    <!-- 页脚页面 -->
+    <div style="background-color: gainsboro;margin-top: 20px">
+        <footer class="page-footer wrapper">
+            <div style="margin: 0 auto;width: 620px;height: 400px;">
+                <div style="float: left;margin-top: 150px;">
+                <span>
+                    版权所有 | 重庆邮电大学 | 重庆市南岸区崇文路2号 | 400065 |
+                    <a href="http://www.beian.miit.gov.cn" target="_blank" style="color:white"> 渝ICP备：17002788号-1</a>
+                </span>
+                    <div style="width:300px;margin:0 auto; padding:20px 0;">
+                        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50010802001309" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                            <img src="http://www.cqupt.edu.cn/dfiles/13011/cqupt/img/beian.jpg" style="float:left;">
+                            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ffffff;">渝公网安备 50010802001309号</p>
+                        </a>
+                    </div>
+                </div>
+                <div style="float: left">
+                <span id="_ideConac">
+                <a target="_blank" href=http://bszs.conac.cn/sitename?method=show&id=350F2D90137E424BE053022819AC0266">
+                <!-- <img id="imgConac" vspace="0" hspace="0" border="0" src="http://www.cqupt.edu.cn/bszs.conac.cn/sitename?method=show&amp;id=350F2D90137E424BE053022819AC0266" data-bd-imgshare-binded="1"> -->
+                </a>
+                </span>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!--页脚结束-->
+</div>
+<script src="js/vue.js"></script>
+<script src="js/eui.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v=new Vue({
+        el:'#app',
+        data:function () {
+            return {
+                productarr:[],
+                wd:'',
+            }
+        },
+        created:function () {
+            let  wd=location.search.split("=")[1] //从网址栏里面截取等于右边的东西
+            axios.get("/search?wd="+wd).then(function (response) {
+                v.productarr=response.data;
+            })
+        },
+        method:{
+
+        }
+    })
+</script>
+</body>
+</html>

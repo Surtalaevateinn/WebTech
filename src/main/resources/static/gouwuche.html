@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .shopping-cart {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .total {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="shopping-cart">
+        <h1>购物车</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in cartItems" :key="index">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    <el-input
+                            v-model="item.quantity"
+                            type="number"
+                            @input="updateQuantity(index, item.quantity)"
+                    ></el-input>
+                </td>
+                <td>{{ item.price * item.quantity }}</td>
+                <td>
+                    <el-button type="danger" icon="el-icon-delete" @click="removeItem(index)"></el-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="total">总计: {{ getTotalPrice() }}</div>
+    </div>
+    <script>
+        export default {
+            data() {
+                return {
+                    cartItems: [
+                        { name: '商品1', price: 10, quantity: 1 },
+                        { name: '商品2', price: 20, quantity: 2 },
+                        { name: '商品3', price: 30, quantity: 3 },
+                    ],
+                };
+            },
+            methods: {
+                updateQuantity(index, newQuantity) {
+                    if (newQuantity >= 1) {
+                        this.cartItems[index].quantity = newQuantity;
+                    }
+                },
+                removeItem(index) {
+                    this.cartItems.splice(index, 1);
+                },
+                getTotalPrice() {
+                    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+                },
+            },
+        };
+    </script>
+</body>
+</html>

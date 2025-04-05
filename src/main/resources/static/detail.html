@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重邮小世界</title>
+    <!-- 先清除在设置 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #6c6c6c;
+        }
+
+        header a:hover {
+            color: #0095d7;
+        }
+
+        .p_img {
+            position: relative;
+            bottom: 5px;
+            box-shadow: 0 0 10px 5px #333;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- logo -->
+            <div class="logo"><h1><a href="http://www.cqupt.edu.cn/">重邮小世界</a></h1></div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="#">校园购</a></li>
+                    <li><a href="#">校园趣事</a></li>
+                </ul>
+            </div>
+            <!-- 搜索 -->
+            <div class="search">
+                <input type="text" name="" id="" placeholder="请输入关键词">
+                <input type="button" @click="search()" class="anniu">
+                <!--            <a href="#"></a>-->
+            </div>
+            <!-- 用户 -->
+            <div class="user">
+                <a href="#">
+                    <img src="./uploads/user.png" alt="">
+                    <span>冒充</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <el-main style="width: 1200px;margin: 0 auto">
+        <el-row :gutter="20">
+            <el-col :span="12">
+                <el-card>
+                    <img :src="product.url" width="100%" alt="">
+                </el-card>
+            </el-col>
+            <el-col :span="12">
+                <!--另外半边-->
+                <p style="font-size: 25px">{{product.title}}</p>
+                <el-divider></el-divider>
+                <p style="font-size: 15px;color: #999999">
+                    销量：{{product.saleCount}} 浏览量：{{product.viewCount}}
+                </p>
+                <p style="font-size: 25px;font-weight: bold">
+                    ￥{{product.price}}
+                    <span style="font-size: 15px;color: #999999">
+                        原价:<s>{{product.oldPrice}}</s>
+                    </span>
+<!--                    <a href="">购买</a>-->
+                    <!--二维码-->
+                    <el-row :gutter="20" style="text-align: center">
+                        <el-col :span="8">
+                            <el-card>
+                                <img src="images/img.png" width="100%" alt="">
+                                <el-button style="" @click="buy()">点击购买</el-button>
+                            </el-card>
+<!--                            <span>请扫码购买商品</span>-->
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="20" style="text-align: center">
+                        <el-col :span="8">
+                            <el-card>
+                                <img src="images/img.png" width="100%" alt="">
+                            </el-card>
+                            <span>请扫码关注本公众号</span>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="20" style="text-align: center">
+                        <el-col :span="8">
+                            <el-card>
+                                <img src="images/img.png" width="100%" alt="">
+                            </el-card>
+                            <span>请扫码下载app</span>
+                        </el-col>
+                    </el-row>
+                </p>
+            </el-col>
+        </el-row>
+    </el-main>
+
+    <!-- 页脚页面 -->
+    <div style="background-color: gainsboro">
+        <footer class="page-footer wrapper">
+            <div style="margin: 0 auto;width: 620px;height: 400px;">
+                <div style="float: left;margin-top: 150px;">
+                <span>
+                    版权所有 | 重庆邮电大学 | 重庆市南岸区崇文路2号 | 400065 |
+                    <a href="http://www.beian.miit.gov.cn" target="_blank" style="color:white"> 渝ICP备：17002788号-1</a>
+                </span>
+                    <div style="width:300px;margin:0 auto; padding:20px 0;">
+                        <a target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50010802001309"
+                           style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                            <img src="http://www.cqupt.edu.cn/dfiles/13011/cqupt/img/beian.jpg" style="float:left;">
+                            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ffffff;">
+                                渝公网安备 50010802001309号</p>
+                        </a>
+                    </div>
+                </div>
+                <div style="float: left">
+                <span id="_ideConac">
+                <a target="_blank" href=http://bszs.conac.cn/sitename?method=show&id=350F2D90137E424BE053022819AC0266">
+                <!-- <img id="imgConac" vspace="0" hspace="0" border="0" src="http://www.cqupt.edu.cn/bszs.conac.cn/sitename?method=show&amp;id=350F2D90137E424BE053022819AC0266" data-bd-imgshare-binded="1"> -->
+                </a>
+                </span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/eui.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "#app",/*下面哪些标签用element开发*/
+        data: function () {
+            return {
+                wd: "",
+                product: []
+            }
+        },
+        created: function () {
+            let id = location.search.split("=")[1]
+            //获取id，获取网址等于符号右边的第一号数字
+            axios.get("/product/selectByid?id=" + id).then(function (response) {
+                v.product = response.data;
+            })
+        },
+        methods: {
+            handleSelect(index) {
+                location.href = "/index.html"
+            },
+            search() {
+                location.href = "index.html"
+            },
+            buy () {
+                location.href = "admin.html"
+            }
+        }
+    })
+</script>
+</body>
+</html>
